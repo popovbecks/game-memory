@@ -1,0 +1,42 @@
+<div class="wrapper_table">
+  <div class="start">
+    <button class="btn" (click)="getStart()" *ngIf="startIsShow">Start game</button>
+    <button class="btn" (click)="getStop()" *ngIf="stopIsShow">Stop game</button>
+    
+    <div class="standBy" *ngIf="standBy"></div>
+
+  </div>
+  <div class="tools" *ngIf="toolState">
+    <p>Осталось времени: {{timer}} секунд <span class="points" > Points:{{points}}</span></p>
+  </div>
+  <div class="cards" *ngIf="conditionCards">
+    <table class="field" (click)="initClick($event)">
+      <tr *ngFor="let row of data">
+        <td *ngFor="let cell of row">
+          <img [src]="cell.src" [id]="cell.id" width="64" height="64">
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="display" *ngIf="conditionDisplay">
+    <div class="timeOut_modal">
+      <p>Time is out! Your result {{points}} points</p>
+      <button class="btn_modal" (click)= (reload())>Let's try again</button>
+    </div>
+
+  </div>
+  <div class="display" *ngIf="conditionDisplayIsWin">
+    <div class="timeOut_modal">
+      <p>You win!</p>
+      <button class="btn_modal" (click)= (reload())>Let's try again</button>
+    </div>
+
+  </div>
+   
+  </div>
+
+
+<!--<div class="div" *ngFor="let item of data" (click)="initClick(item)">
+    <img [src]="item.src" width="60" height="60">
+    </div>
+  -->

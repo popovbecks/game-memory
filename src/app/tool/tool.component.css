@@ -1,0 +1,20 @@
+.btn_tool{
+    width:200px;
+    height: 100px;
+    background-color: goldenrod;
+    margin: 20px; 
+    display:block;
+    font-size: 20px;
+    border-radius: 25%;
+}
+.buttons_group{
+    margin: 10px;
+    padding-bottom: 356px;
+    
+}
+.label h1{
+    color: midnightblue;
+    text-align: center;
+    font-size: 25px;
+    color:mediumblue;
+}

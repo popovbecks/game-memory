@@ -1,0 +1,27 @@
+.wrapper{
+    border: 5px solid orange ;
+    width: 60%;
+    margin-left: 20%;
+}
+.wrap_content{
+    overflow: hidden;
+    width: 100%;
+}
+.side_bar{
+    float:left;
+    width: 30%;
+    background-color: cornflowerblue;
+}
+.play_field{
+    float:right;
+    width: 70%;
+    
+    
+}
+.header {
+    width:100%;
+    
+}
+.footer{
+    width: 100%;
+}
