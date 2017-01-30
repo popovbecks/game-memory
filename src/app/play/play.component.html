@@ -4,6 +4,7 @@
     <button class="btn" (click)="getStop()" *ngIf="stopIsShow">Stop game</button>
     
     <div class="standBy" *ngIf="standBy"></div>
+     
 
   </div>
   <div class="tools" *ngIf="toolState">
@@ -14,6 +15,7 @@
       <tr *ngFor="let row of data">
         <td *ngFor="let cell of row">
           <img [src]="cell.src" [id]="cell.id" width="64" height="64">
+          <div class="container"></div>
         </td>
       </tr>
     </table>

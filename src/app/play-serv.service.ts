@@ -71,7 +71,6 @@ export class PlayServService {
   
   
   constructor() { }
-  //tool methods
   private middle:number = 4;
   private big:number = 8;
 

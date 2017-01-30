@@ -22,6 +22,7 @@ export class PlayComponent {
   public second: number = 1;
   public stopIsShow: boolean = false;
   public startIsShow: boolean = true;
+  
 
 
   data: { src: string, id: number }[][];    //our data with image and their id(name)
@@ -34,7 +35,7 @@ export class PlayComponent {
       this.startIsShow = false;
       this.stopIsShow = true;
       this.second = 1;
-      this.timer = 90;
+      this.setTime();
       clearInterval(this.timerId);
       this.goTime();
       this.data = this.playService.createTable(this.size);
@@ -80,10 +81,10 @@ export class PlayComponent {
       if (this.currentOpenImages[0].id === img.id) {
 
         this.currentOpenImages[0].parentNode.classList.add('hide');
-
+        
+        
         img.classList.add('open');
         img.parentNode.classList.add('hide');
-
         this.countOpened++;
         this.checkCards();
         this.currentOpenImages.length = 0;
@@ -107,6 +108,14 @@ export class PlayComponent {
     }
 
 
+  }
+
+  setTime() {
+    if(this.size === 4) {
+      this.timer = 60
+    }else{
+      this.timer = 180
+    }
   }
   goTime(): void {
     this.timer -= this.second;
@@ -141,6 +150,8 @@ export class PlayComponent {
       this.standBy = true;
       this.conditionDisplayIsWin = true;
       this.toolState = false;
+      this.stopIsShow = false;
+      this.startIsShow = true;
       clearInterval(this.timerId);
     }
   }
