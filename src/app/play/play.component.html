@@ -29,6 +29,7 @@
   </div>
   <div class="display" *ngIf="conditionDisplayIsWin">
     <div class="timeOut_modal">
+      <p>Congratulation! Your result {{points}} points</p>
       <p>You win!</p>
       <button class="btn_modal" (click)= (reload())>Let's try again</button>
     </div>
