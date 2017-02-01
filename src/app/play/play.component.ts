@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { PlayServService } from '../play-serv.service'
+import { PlayServService } from '../play-serv.service';
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 @Component({
   selector: 'app-play',
@@ -8,6 +9,10 @@ import { PlayServService } from '../play-serv.service'
   providers: [PlayServService]
 })
 export class PlayComponent {
+
+
+  
+
   @Input()
   public size: number;
   public timer: number = 90;
@@ -22,16 +27,13 @@ export class PlayComponent {
   public second: number = 1;
   public stopIsShow: boolean = false;
   public startIsShow: boolean = true;
+
   
-
-
   data: { src: string, id: number }[][];    //our data with image and their id(name)
-
-
   public currentOpened: number = 0;            //current opened image
-
   public getStart(): void {                                  //start when your click on btn "GameStart"
     if (this.size !== undefined) {
+      console.log(this.size);
       this.startIsShow = false;
       this.stopIsShow = true;
       this.second = 1;
@@ -47,7 +49,6 @@ export class PlayComponent {
     } else {
       return;
     }
-
   }
   public getStop() {
     this.stopIsShow = false;
@@ -60,12 +61,11 @@ export class PlayComponent {
     //this.timer = 90;
   }
   constructor(private playService: PlayServService) {
+    
   }
+  
 
   public currentOpenImages: any[] = [];
-
-
-
   initClick(e) {
 
     let td = e.target.closest('td');
@@ -79,10 +79,7 @@ export class PlayComponent {
     }
     else if (this.currentOpenImages.length === 1) {
       if (this.currentOpenImages[0].id === img.id) {
-
         this.currentOpenImages[0].parentNode.classList.add('hide');
-        
-        
         img.classList.add('open');
         img.parentNode.classList.add('hide');
         this.countOpened++;
@@ -90,24 +87,21 @@ export class PlayComponent {
         this.currentOpenImages.length = 0;
         console.log(this.countOpened);
         this.getPoints();
-
       } else {
         img.classList.add('open');
         this.currentOpenImages.push(img);
       }
-
     }
     else {
       if (this.currentOpenImages.length === 2) {
         this.currentOpenImages[0].classList.remove('open');
         this.currentOpenImages[1].classList.remove('open');
+        this.deletePoints();
         this.currentOpenImages.length = 0;
         this.currentOpenImages.push(img);
         img.classList.add('open');
       }
     }
-
-
   }
 
   setTime() {
@@ -130,22 +124,27 @@ export class PlayComponent {
   public getPoints(): void {
     this.points++;
   }
-  public timeOut(): void {
+  public deletePoints(){
+    this.points--
+  }
+  public timeOut(): void {                //when time is out
     clearInterval(this.timerId);
 
     this.conditionDisplay = true;
-
+    this.stopIsShow = false;
+    this.startIsShow = true;
     this.conditionCards = false;
   }
-  public reload(): void {
+  public reload(): void {               //going to start state
     this.conditionDisplay = false;
     this.conditionDisplayIsWin = false;
     this.standBy = true;
     this.toolState = false;
     this.timer = 90;
   }
-  public checkCards(): void {
-    if (this.countOpened === this.size * 2) {
+  public checkCards(): void {         //check cards is win
+    if(this.size === 4) {
+      if (this.countOpened === this.size * 2) {
       this.conditionCards = false;
       this.standBy = true;
       this.conditionDisplayIsWin = true;
@@ -154,5 +153,17 @@ export class PlayComponent {
       this.startIsShow = true;
       clearInterval(this.timerId);
     }
+    }if(this.size === 8){
+      if (this.countOpened === this.size * 4) {
+      this.conditionCards = false;
+      this.standBy = true;
+      this.conditionDisplayIsWin = true;
+      this.toolState = false;
+      this.stopIsShow = false;
+      this.startIsShow = true;
+      clearInterval(this.timerId);
+    }
+    }
+    
   }
 }
